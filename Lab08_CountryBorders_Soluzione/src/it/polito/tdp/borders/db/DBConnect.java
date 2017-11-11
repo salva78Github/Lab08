@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class DBConnect {
 
-	static private final String jdbcUrl = "jdbc:mysql://localhost/countries?user=root";
+	static private final String jdbcUrl = "jdbc:mysql://localhost/countries?user=root&password=salva_root";
 	static private DBConnect instance = null;
 
 	private DBConnect() {
