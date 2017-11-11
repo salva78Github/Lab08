@@ -3,11 +3,13 @@ package it.polito.tdp.borders.db;
 import java.sql.Connection;
 
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DBConnect {
 
-	static private final String jdbcUrl = "jdbc:mysql://localhost/countries?user=root";
+	static private final String jdbcUrl = "jdbc:mysql://localhost/countries?user=root&password=salva_root";
 	static private DBConnect instance = null;
 
 	private DBConnect() {
@@ -34,4 +36,35 @@ public class DBConnect {
 		}
 	}
 
+	public void closeResources(Connection conn, PreparedStatement st, ResultSet rs) {
+		// TODO Auto-generated method stub
+		if (rs != null) {
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		if (st != null) {
+			try {
+				st.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		if (conn != null) {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+	
+	
 }
