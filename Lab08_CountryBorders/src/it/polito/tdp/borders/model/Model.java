@@ -2,9 +2,11 @@ package it.polito.tdp.borders.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.jgrapht.Graphs;
 import org.jgrapht.UndirectedGraph;
+import org.jgrapht.alg.ConnectivityInspector;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleGraph;
 
@@ -12,7 +14,7 @@ import it.polito.tdp.borders.db.BordersDAO;
 
 public class Model {
 
-	private static UndirectedGraph<Country, DefaultEdge> graph;
+	private UndirectedGraph<Country, DefaultEdge> graph;
 	private static final BordersDAO dao = new BordersDAO();
 	
 	public Model() {
@@ -40,12 +42,20 @@ public class Model {
 		List<Country> countries = new ArrayList<>();
 		
 		for(Country c : graph.vertexSet()){
-			c.setNumeroStatiConfinanti(Graphs.neighborListOf(graph, c).size());
+			c.setNumeroStatiConfinanti(graph.degreeOf(c));
 			countries.add(c);
 		}
 		
 		return countries;
 		
+	}
+
+	public int getNumeroComponentiConnesse() {
+
+		ConnectivityInspector<Country, DefaultEdge> ci = new ConnectivityInspector<Country, DefaultEdge>(graph);
+		System.out.println("<getNumeroComponentiConnesse> Il grafo è connesso? " + ci.isGraphConnected());
+		
+		return ci.connectedSets().size();
 	}
 	
 	

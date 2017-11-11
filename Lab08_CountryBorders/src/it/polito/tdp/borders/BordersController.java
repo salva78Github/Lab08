@@ -47,6 +47,7 @@ public class BordersController {
 				}
 				else{
 					List<Country> countries = model.retrieveConfini(year);
+					txtResult.setText("Numero di componenti connesse: " + model.getNumeroComponentiConnesse() + "\n \n");
 					for(Country c : countries){
 						txtResult.appendText(c.toString());
 					}
